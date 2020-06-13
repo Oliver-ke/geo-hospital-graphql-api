@@ -1,16 +1,22 @@
 const admin = require('firebase-admin');
 
 
-let pKey = process.env.FIREBASE_PRIVATE_KEY;
-pKey.replace(/\\n/g, '\n')
+let pKey = process.env.GOOGLE_CONFIG_BASE64
+// pKey.replace(/\\n/g, '\n')
+
+// admin.initializeApp({
+//   credential: admin.credential.cert({
+//     "private_key": pKey,
+//     "client_email": process.env.FIREBASE_CLIENT_EMAIL,
+//     "project_id": "geohospital1",
+//   }),
+//   databaseURL: "https://geohospital1.firebaseio.com"
+// });
 
 admin.initializeApp({
-  credential: admin.credential.cert({
-    "private_key": pKey,
-    "client_email": process.env.FIREBASE_CLIENT_EMAIL,
-    "project_id": "geohospital1",
-  }),
-  databaseURL: "https://geohospital1.firebaseio.com"
+  credential: admin.credential.cert(
+    JSON.parse(Buffer.from(pKey, 'base64').toString("ascii"))
+  )
 });
 
 
