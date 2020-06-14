@@ -1,4 +1,3 @@
-const isTokenValid = require('../validator/validate');
 const { addUserHistory, getUserHistory } = require('../firebase/firebase');
 const googleQuery = require('../google/google');
 
@@ -14,10 +13,12 @@ module.exports = {
       })
       return filteredResult.length > 0 ? filteredResult : [];
     },
-
-    searchWithSaveHistory: async (_, args) => {
+    searchWithSaveHistory: async (_, args, { req }) => {
+      const { user } = req;
+      if (!user) {
+        throw new Error("Invalid user, provide valid X_USER in request header");
+      }
       const { query, radius, lng, lat } = args;
-
       const { results } = await googleQuery(query, radius, lng, lat);
 
       const filteredResult = results.map(({ id, name, vicinity, formatted_address, geometry }) => {
@@ -25,23 +26,29 @@ module.exports = {
         let address = vicinity ? vicinity : formatted_address;
         return { name, address, location, id }
       })
-      // save search to user histories
-      await addUserHistory('12jjush', { query: "clean spring", results: filteredResult });
+
+      await addUserHistory(user, { query, results: filteredResult });
       return filteredResult.length > 0 ? filteredResult : [];
     },
-    userHistory: async (_, args) => {
-      const { userId } = args;
-      const history = await getUserHistory(userId);
+    userHistory: async (_, args, { req }) => {
+      const { user } = req;
+      if (!user) {
+        throw new Error("Invalid user, provide valid X_USER in request header");
+      }
+      const history = await getUserHistory(user);
       return history;
     }
   },
   Mutation: {
-    addHistroy: (_, args) => {
+    addHistroy: async (_, args, { req }) => {
       const { query, results } = args;
-      return { query, results: [] }
+      const { user } = req;
+      console.log(user);
+      if (!user) {
+        throw new Error("Invalid user, provide valid X_USER in request header");
+      }
+      await addUserHistory(user, { query, results });
+      return { query, results }
     }
   }
 }
-
-
-// 4.8283, 7.0579

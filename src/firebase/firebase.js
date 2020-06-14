@@ -1,17 +1,8 @@
 const admin = require('firebase-admin');
+const { config } = require('dotenv');
+config()
 
-
-let pKey = process.env.GOOGLE_CONFIG_BASE64
-// pKey.replace(/\\n/g, '\n')
-
-// admin.initializeApp({
-//   credential: admin.credential.cert({
-//     "private_key": pKey,
-//     "client_email": process.env.FIREBASE_CLIENT_EMAIL,
-//     "project_id": "geohospital1",
-//   }),
-//   databaseURL: "https://geohospital1.firebaseio.com"
-// });
+let pKey = process.env.GOOGLE_CONFIG_BASE64;
 
 admin.initializeApp({
   credential: admin.credential.cert(

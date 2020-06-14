@@ -16,7 +16,6 @@ const getKey = (header, callback) => {
 const isTokenValid = async (token) => {
   if (token) {
     const bearerToken = token.split(" ");
-
     const result = new Promise((resolve, reject) => {
       jwt.verify(
         bearerToken[1],

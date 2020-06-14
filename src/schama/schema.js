@@ -27,11 +27,14 @@ const typeDefs = gql`
     name: String
   }
   type Query {
-    userHistory(userId: String!): [QueryHistory]!
+    "get users search history"
+    userHistory: [QueryHistory]!
+    "query and save user history"
     searchWithSaveHistory(query: String!, radius: Int!, lng: Float!, lat: Float!): [Search]!
     search(query: String!, radius: Int!, lng: Float!, lat: Float!): [Search]!
   }
   type Mutation {
+    "create new user history directly"
     addHistroy(query: String!, results: [resultsInput]): QueryHistory
   }
 `;
