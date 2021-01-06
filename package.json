@@ -27,7 +27,7 @@
   "homepage": "https://github.com/oliver-ke/ghospital-graphql-service#readme",
   "dependencies": {
     "apollo-server": "^2.14.4",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "firebase-admin": "^8.12.1",
     "graphql": "^15.1.0",
