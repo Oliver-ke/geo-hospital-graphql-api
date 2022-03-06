@@ -1,6 +1,7 @@
 const axios = require('axios');
+const {GOOGLE_MAP } = require('../config')
 
-const key = process.env.GOOGLE_MAP;
+const key = GOOGLE_MAP;
 
 const googleQuery = async (query, radius, lng, lat) => {
   try {
@@ -16,7 +17,6 @@ const googleQuery = async (query, radius, lng, lat) => {
     const { data } = await axios.get(uri);
     return data;
   } catch (error) {
-    console.log(error);
     throw new Error(error)
   }
 }

@@ -1,5 +1,3 @@
-
-
 const authContext = ({ req, ...rest }) => {
   if (req.headers) {
     const { x_user } = req.headers;

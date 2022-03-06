@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "nodemon ./src/server.js",
-    "start": "node ./src/server.js"
+    "start": "node ./src/server.js",
+    "lint": "eslint 'src/**/*.js?(x)'"
   },
   "repository": {
     "type": "git",
@@ -26,12 +27,18 @@
   },
   "homepage": "https://github.com/oliver-ke/ghospital-graphql-service#readme",
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.50.0",
+    "@aws-sdk/lib-dynamodb": "^3.50.0",
     "apollo-server": "^2.14.4",
-    "axios": "^0.19.2",
+    "axios": "^0.25.0",
     "dotenv": "^8.2.0",
-    "firebase-admin": "^8.12.1",
+    "firebase-admin": "^10.0.2",
     "graphql": "^15.1.0",
     "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^1.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.9.0",
+    "nodemon": "^2.0.15"
   }
 }
