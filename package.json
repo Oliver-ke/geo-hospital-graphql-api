@@ -30,7 +30,7 @@
     "@aws-sdk/client-dynamodb": "^3.50.0",
     "@aws-sdk/lib-dynamodb": "^3.50.0",
     "apollo-server": "^2.14.4",
-    "axios": "^0.25.0",
+    "axios": "^0.21.2",
     "dotenv": "^8.2.0",
     "firebase-admin": "^10.0.2",
     "graphql": "^15.1.0",
