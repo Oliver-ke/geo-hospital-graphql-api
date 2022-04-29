@@ -1,34 +1,40 @@
-const axios = require('axios');
+const axios = require("axios");
 
 const key = process.env.GOOGLE_MAP;
 
 const googleQuery = async (query, radius, lng, lat) => {
   try {
-    let searchEntity = 'textsearch'
+    let searchEntity = "textsearch";
     const baseUri = `https://maps.googleapis.com/maps/api/place/${searchEntity}/json`;
-    let queryParams = encodeURI(`?query=${query}&location=${lat},${lng}&radius=${radius}&type=hospital`);
+    let queryParams = encodeURI(
+      `?query=${query}&location=${lat},${lng}&radius=${radius}&type=hospital`
+    );
     const matchKeyword = checkTypeFromQuery(query);
     if (matchKeyword) {
       searchEntity = "nearbysearch";
-      queryParams = encodeURI(`?keyword=${query}&location=${lat},${lng}&radius=${radius}`);
+      queryParams = encodeURI(
+        `?keyword=${query}&location=${lat},${lng}&radius=${radius}`
+      );
     }
     const uri = `${baseUri}${queryParams}&key=${key}`;
     const { data } = await axios.get(uri);
     return data;
   } catch (error) {
     console.log(error);
-    throw new Error(error)
+    throw new Error(error);
   }
-}
+};
 
 const checkTypeFromQuery = (query) => {
   const queryLowerCase = query.toLocaleLowerCase();
-  const regex = new RegExp(/ \b(\w*pharmacies|pharmacy|clinics|clinic|medical offices|medical office\w*)\b/);
+  const regex = new RegExp(
+    / \b(\w*pharmacies|pharmacy|clinics|clinic|medical offices|medical office\w*)\b/
+  );
   const isMatch = regex.exec(queryLowerCase);
   if (isMatch) {
     return queryLowerCase;
   }
   return false;
-}
+};
 
 module.exports = googleQuery;
